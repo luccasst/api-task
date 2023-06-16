@@ -1,6 +1,6 @@
-namespace SistemaDeTarefas.Models
+namespace crudUser.Models
 {
-    public class UsuarioModel
+    public class UserModel
     {
         public int Id { get; set; }
         public string? Name { get; set; }
