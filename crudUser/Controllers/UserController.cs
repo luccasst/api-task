@@ -21,6 +21,17 @@ namespace crudUser.Controllers
             return Ok(users);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<UserModel>>> BuscarPorId(int id)
+        {
+            UserModel userById = await _userRepository.BuscarPorId(id);
+            if (userById == null)
+            {
+                return NotFound();
+            }
+            return Ok(userById);
+        }
+
         [HttpPost]
         public async Task<ActionResult<UserModel>> Cadastrar([FromBody] UserModel userModel)
         {
