@@ -5,7 +5,7 @@ using crudUser.Repository.Interfaces;
 
 namespace crudUser.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/User")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -14,6 +14,7 @@ namespace crudUser.Controllers
         {
             _userRepository = userRepository;
         }
+        
         [HttpGet]
         public async Task<ActionResult<List<UserModel>>> BuscarUsuarios()
         {
@@ -36,7 +37,14 @@ namespace crudUser.Controllers
         public async Task<ActionResult<UserModel>> Cadastrar([FromBody] UserModel userModel)
         {
             UserModel user = await _userRepository.Adicionar(userModel);
+            return Ok(user);
+        }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserModel>> Atualizar([FromBody] UserModel userModel, int id)
+        {
+            userModel.Id = id;
+            UserModel user = await _userRepository.Atualizar(userModel, id);
             return Ok(user);
         }
     }
