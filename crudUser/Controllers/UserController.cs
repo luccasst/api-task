@@ -23,7 +23,7 @@ namespace crudUser.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<UserModel>>> BuscarPorId(int id)
+        public async Task<ActionResult<List<UserModel>>> BuscarPorId(Guid id)
         {
             UserModel userById = await _userRepository.BuscarPorId(id);
             if (userById == null)
@@ -41,11 +41,22 @@ namespace crudUser.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserModel>> Atualizar([FromBody] UserModel userModel, int id)
+        public async Task<ActionResult<UserModel>> Atualizar([FromBody] UserModel userModel, Guid id)
         {
             userModel.Id = id;
             UserModel user = await _userRepository.Atualizar(userModel, id);
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<UserModel>> Apagar(Guid id)
+        {
+            bool userDelete = await _userRepository.Apagar(id);
+
+            if (!userDelete) {
+                return NotFound();
+            }
+            return Ok( new{ Message = "successfully deleted user"});
         }
     }
 }

@@ -13,7 +13,7 @@ namespace crudUser.Repository
             _dbContext = systemTask;
         }
 
-        public async Task<UserModel> BuscarPorId(int id)
+        public async Task<UserModel> BuscarPorId(Guid id)
         {
            return await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -31,7 +31,7 @@ namespace crudUser.Repository
         }
 
 
-        public async Task<UserModel> Atualizar(UserModel user, int id)
+        public async Task<UserModel> Atualizar(UserModel user, Guid id)
         {
             UserModel userId = await BuscarPorId(id);
             if(userId == null)
@@ -46,7 +46,7 @@ namespace crudUser.Repository
             return userId;
         }
 
-        public async Task<bool> Apagar(int id)
+        public async Task<bool> Apagar(Guid id)
         {
             UserModel userId = await BuscarPorId(id);
 
