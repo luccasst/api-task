@@ -12,7 +12,7 @@ using crudUser.Data;
 namespace crudUser.Migrations
 {
     [DbContext(typeof(SystemTask))]
-    [Migration("20230619182344_InitialDB")]
+    [Migration("20230621152101_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace crudUser.Migrations
 
             modelBuilder.Entity("crudUser.Models.TaskModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
@@ -45,7 +43,12 @@ namespace crudUser.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tarefas");
                 });
@@ -69,6 +72,15 @@ namespace crudUser.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("crudUser.Models.TaskModel", b =>
+                {
+                    b.HasOne("crudUser.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
