@@ -36,7 +36,7 @@ namespace crudUser.Repository
             TaskModel taskId = await BuscarPorId(id);
             if(taskId == null)
             {
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado");
+                throw new Exception($"Tarefa para o ID: {id} não foi encontrado");
             }
             taskId.Name = task.Name;
             taskId.Description = task.Description;
@@ -54,7 +54,7 @@ namespace crudUser.Repository
 
             if(taskId == null)
             {
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado");
+                throw new Exception($"Tarefa para o ID: {id} não foi encontrado");
             }
             _dbContext.Tarefas.Remove(taskId);
             await _dbContext.SaveChangesAsync();

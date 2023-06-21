@@ -12,7 +12,7 @@ using crudUser.Data;
 namespace crudUser.Migrations
 {
     [DbContext(typeof(SystemTask))]
-    [Migration("20230621152101_InitialDB")]
+    [Migration("20230621165309_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
